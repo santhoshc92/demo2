@@ -1,0 +1,111 @@
+download all files from abhinv and upload in your drive
+
+
+
+Association rule mining/ market basket analysis
+
+when u want to buy X, also buy Y (no intention initially but after seeing, then decided) as two products are placed near
+
+Antecedent - buying a phone 
+consequent  - buying a screen guard
+
+product placement in retail stores
+
+tie up with other vendor example: buy gym membership and gym with partner with shoe brands and sell
+
+bread and butter , diaper -- bear example
+
+
+Support: **probability of product being bought
+         ** popularity of item in dataset 
+         ** b/w 0 and 1
+
+  support     = instances of A / number of instances
+
+only transactions matter not quantity of  products
+eg:100 transaction are happening
+support for  milk.. how many are milk out of 100 transaction
+
+confidence : **its like conditional probability
+             ** how likely A (consequent) is bought if B (antecedent) is purchased
+              ** b/w 0 and 1
+      confidence (B-->A)  = instances of B and A together/ instances of B  = confidence(A/B)   ...consider like p(A/B) = P(A intersect B)/P(B)
+0 -whenever B is bought A is not bought together
+1- whenever B is bought A is bought together
+
+Lift: ** is the probability of A being bought given that B is present, taking into account the popularity of A as well.
+Lift (B-->A) = confidence  /consequent support   = confidence (B-->A)/ support of A
+**  ** b/w 0 and infinity
+** indicates association b/w 2 products
+** high lift , high signifiant association ---
+** high lift means products sold together but are not very popular 
+---------------
+Summary:
+
+✅ apyori → No one-hot encoding needed. Use lists of item names.
+
+🔲 mlxtend → Requires one-hot encoded DataFrame (pandas) if you're using its Apriori or association_rules functions.
+_______________________________________
+
+note:   https://rasbt.github.io/mlxtend/user_guide/frequent_patterns/association_rules/
+
+study about get dummies, one hot encoding, multilabelbinarizer
+is market basket and assocition rules different
+
+--------------------------------------------------------------------------------
+
+Use TransactionEncoder when:
+
+You have transactional data (e.g., market baskets, purchase logs).
+
+You want to apply Apriori, FP-Growth, or other association rule mining algorithms.
+
+You need to prepare input for mlxtend.frequent_patterns.apriori.
+
+Both do similar things (one-hot encoding of sets), but:
+
+Use this	When your data is...
+TransactionEncoder	Transaction-style (market basket, shopping cart)
+MultiLabelBinarizer	Multi-label classification (text tags, genres)
+
+1. TransactionEncoder()
+
+Initializes the encoder – it will convert your transactions into a one-hot encoded format.
+
+2. fit(re).transform(re)
+
+fit(re): Learns the unique items from all transactions.
+
+transform(re): Creates a binary (True/False) matrix indicating which items are present in each transaction.
+   -------------------------------------------------------
+.str.get_dummies() for one hot encoding:
+
+df['Basket_str'] = df['Basket'].apply(lambda x: ','.join(x))
+df['Basket_str'].str.get_dummies(sep=',')
+
+You're converting a column of lists (e.g., ['Beer', 'Chips']) into a single string like 'Beer,Chips'.
+lambda x: ','.join(x)
+
+This is an anonymous function that:
+
+Takes a list x (e.g., ['Beer', 'Chips'])
+
+Joins the elements with commas: 'Beer,Chips'
+
+----
+','.join(x):
+
+join() is a string method.
+
+It joins a list of strings into a single string, with a specified separator.
+---
+And .str.get_dummies() requires:
+
+A string column, not a list
+
+Items separated by a specific character (like ,)
+
+
+
+
+ 
